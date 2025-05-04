@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="bancoPU" transaction-type="RESOURCE_LOCAL">
+        <class>org.example.entity.Cliente</class>
+        <class>org.example.entity.Estoque</class>
+        <class>org.example.entity.CarroVendido</class>
+        <class>org.example.entity.Pagamento</class>
+        <class>org.example.entity.Venda</class>
+        <class>org.example.entity.Usuario</class>
+        <class>org.example.entity.Administrador</class>
+        <class>org.example.entity.CarroPopular</class>
+        <class>org.example.entity.CarroEsportivo</class>
+        <class>org.example.entity.Carro</class>
+        <!-- Outras entidades... -->
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco_teste3"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="mysql2024"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
