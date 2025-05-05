@@ -19,7 +19,7 @@ public class VendaService {
     private ClienteDao clienteDao;
     private EntityManager em;
 
-    public VendaService(EntityManager em, CarroDao carroDao, ClienteDao clienteDao, VendaDao vendaDao, CarroVendidoDao carroVendidoDao) {
+    public VendaService(EntityManager em) {
         this.em = em;
         this.carroDao = carroDao;
         this.clienteDao = clienteDao;

@@ -17,6 +17,7 @@ public class EstoqueDto {
 
     private Long id;
     private Status status;
+    private String modeloDoCarro;
     private LocalDateTime dataDeChegada;
     private LocalDateTime dataDeModificacao;
 
@@ -25,6 +26,7 @@ public class EstoqueDto {
         return  "--------------------- \n" +
                 "Id = " + id  + "\n" +
                 "Status = " + status + "\n" +
+                "Modelo = " + modeloDoCarro + "\n" +
                 "Data de Chegada = " + dataDeChegada + "\n" +
                 "Data de Modificação = " + dataDeModificacao;
     }

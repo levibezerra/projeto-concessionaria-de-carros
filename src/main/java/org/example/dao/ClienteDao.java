@@ -26,7 +26,7 @@ public class ClienteDao {
     }
 
     public List<Cliente> listarTodos() {
-        TypedQuery<Cliente> clienteTypedQuery = entityManager.createQuery("SELECT C FROM Cliente c", Cliente.class);
+        TypedQuery<Cliente> clienteTypedQuery = entityManager.createQuery("SELECT c FROM Cliente c", Cliente.class);
         return clienteTypedQuery.getResultList();
     }
 

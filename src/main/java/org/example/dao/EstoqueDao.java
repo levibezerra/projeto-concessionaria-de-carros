@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import jakarta.persistence.EntityManager;
+import org.example.entity.Carro;
 import org.example.entity.Estoque;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class EstoqueDao {
 
     public List<Estoque> listarCarrosNoEstoque() {
         List<Estoque> estoque = new ArrayList<>();
-        estoque.addAll(entityManager.createQuery("SELECT e FROM estoque e", Estoque.class).getResultList());
+        estoque.addAll(entityManager.createQuery("SELECT e FROM Estoque e JOIN FETCH e.carro", Estoque.class).getResultList());
         return estoque;
     }
 }

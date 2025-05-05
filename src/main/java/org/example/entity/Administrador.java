@@ -37,4 +37,9 @@ public class Administrador {
 
     @Column(name = "data_de_criacao")
     private LocalDateTime dataDeCriacao;
+
+    @PrePersist
+    public void onCreate() {
+        this.dataDeCriacao = LocalDateTime.now();
+    }
 }

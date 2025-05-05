@@ -35,6 +35,14 @@ public class EstoqueService {
             EstoqueDto dto = new EstoqueDto();
             dto.setId(estoque.getId());
             dto.setStatus(estoque.getStatus());
+            dto.setDataDeChegada(estoque.getDataDeChegada());
+            dto.setDataDeModificacao(estoque.getDataDeModificacao());
+
+            if (estoque.getCarro() != null) {
+                dto.setModeloDoCarro(estoque.getCarro().getModelo());
+            } else {
+                dto.setModeloDoCarro("Carro não associado!");
+            }
             return dto;
         }).collect(Collectors.toList());
     }

@@ -36,7 +36,8 @@ public abstract class Carro {
     @Column(name = "data_de_entrada", nullable = false)
     private LocalDateTime dataDeEntrada;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "estoque_id", referencedColumnName = "id")
     private Estoque estoque;
 
     public Carro(String marca, String modelo) {

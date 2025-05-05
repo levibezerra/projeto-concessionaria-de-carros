@@ -58,48 +58,35 @@ public class ClienteController {
     public void atualizarCliente() {
         ClienteDto dto = new ClienteDto();
 
-        System.out.println("1 - ENDEREÇO \n" +
-                           "2 - TELEFONE \n" +
-                           "3 - EMAIL \n" +
-                           "4 - SENHA");
-        System.out.println("Escolha uma opção que deseja atualizar: ");
-        String opcao = input.nextLine();
-
         System.out.println("Informe o ID do Cliente: ");
         Long id = Long.parseLong(input.nextLine());
 
-        switch (opcao) {
-            case "1":
-                System.out.println("Digite o novo ENDEREÇO do Cliente: ");
-                String endereco = input.nextLine();
-                dto.setEndereco(endereco);
-                clienteService.atualizarCliente(id, dto);
-                System.out.println("Cliente atualizado com sucesso!");
-                break;
-            case "2":
-                System.out.println("Digite o novo número de TELEFONE do Cliente: ");
-                String telefone = input.nextLine();
-                dto.setTelefone(telefone);
-                clienteService.atualizarCliente(id, dto);
-                System.out.println("Cliente atualizado com sucesso!");
-                break;
-            case "3":
-                System.out.println("Digite o novo EMAIL do Cliente: ");
-                String email = input.nextLine();
-                dto.setEmail(email);
-                clienteService.atualizarCliente(id, dto);
-                System.out.println("Cliente atualizado com sucesso!");
-                break;
-            case "4":
-                System.out.println("Digite a nova SENHA do Cliente: ");
-                String senha = input.nextLine();
-                dto.setPassword(senha);
-                clienteService.atualizarCliente(id, dto);
-                System.out.println("Cliente atualizado com sucesso!");
-                break;
-            default:
-                System.out.println("Opção invalida!");
-        }
+        System.out.println("Digite o novo NOME do Cliente: ");
+        String nome = input.nextLine();
+        dto.setEndereco(nome);
+        clienteService.atualizarCliente(id, dto);
+
+        System.out.println("Digite o novo ENDEREÇO do Cliente: ");
+        String endereco = input.nextLine();
+        dto.setEndereco(endereco);
+        clienteService.atualizarCliente(id, dto);
+
+        System.out.println("Digite o novo número de TELEFONE do Cliente: ");
+        String telefone = input.nextLine();
+        dto.setTelefone(telefone);
+        clienteService.atualizarCliente(id, dto);
+
+        System.out.println("Digite o novo EMAIL do Cliente: ");
+        String email = input.nextLine();
+        dto.setEmail(email);
+        clienteService.atualizarCliente(id, dto);
+
+        System.out.println("Digite a nova SENHA do Cliente: ");
+        String senha = input.nextLine();
+        dto.setPassword(senha);
+        clienteService.atualizarCliente(id, dto);
+
+        System.out.println("Cliente atualizado com sucesso!");
     }
 
     public void deletarCliente() {
