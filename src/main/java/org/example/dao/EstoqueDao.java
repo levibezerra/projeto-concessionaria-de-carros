@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import org.example.entity.Carro;
 import org.example.entity.Estoque;
 
@@ -25,5 +26,23 @@ public class EstoqueDao {
         List<Estoque> estoque = new ArrayList<>();
         estoque.addAll(entityManager.createQuery("SELECT e FROM Estoque e JOIN FETCH e.carro", Estoque.class).getResultList());
         return estoque;
+    }
+
+    public Estoque buscarCarroNoEstoquePorId(Long id) {
+        try {
+            return entityManager.createQuery(
+                    "SELECT e FROM Estoque e WHERE e.carro.id = :id", Estoque.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public void atualizar(Estoque estoque) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(estoque);
+        entityManager.getTransaction().commit();
     }
 }

@@ -1,70 +1,104 @@
 package org.example.controller;
 
-import org.example.dto.CarroDto;
-import org.example.dto.ClienteDto;
-import org.example.dto.VendaDto;
-import org.example.entity.Pagamento;
+import org.example.dao.CarroDao;
+import org.example.dto.*;
+import org.example.entity.*;
 import org.example.enums.FormaDePagamento;
+import org.example.enums.Status;
+import org.example.enums.StatusDoPagamento;
+import org.example.service.CarroEsportivoService;
+import org.example.service.CarroPopularService;
 import org.example.service.VendaService;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class VendaController {
 
     private final VendaService vendaService;
-    Scanner input = new Scanner(System.in);
+    private final CarroPopularService carroPopularService;
+    private final CarroEsportivoService carroEsportivoService;
 
     VendaDto dto = new VendaDto();
     ClienteDto clienteDto = new ClienteDto();
     CarroDto carroDto = new CarroDto();
     Pagamento pagamento = new Pagamento();
+    PagamentoDto pagamentoDto = new PagamentoDto();
+    Estoque estoque = new Estoque();
+    EstoqueDto estoqueDto = new EstoqueDto();
 
-    public VendaController(VendaService vendaService) {
+    Scanner input = new Scanner(System.in);
+
+    public VendaController(VendaService vendaService, CarroPopularService carroPopularService, CarroEsportivoService carroEsportivoService) {
         this.vendaService = vendaService;
+        this.carroPopularService = carroPopularService;
+        this.carroEsportivoService = carroEsportivoService;
     }
 
-    public void realizarVendaCarro() {
+    BigDecimal preco = BigDecimal.valueOf(0);
 
+    public void realizarVendaCarro() {
         System.out.println("Informe o ID do CLIENTE: ");
         Long idCliente =  Long.parseLong(input.nextLine());
-        clienteDto.setId(idCliente);
 
         System.out.println("Informe o ID do CARRO: ");
         Long idCarro = Long.parseLong(input.nextLine());
-        carroDto.setId(idCarro);
 
         System.out.println("Informe a forma de pagamento: \n" +
-                           "1 - PIX \n" +
-                           "2 - CARTÃO");
+                "1 - PIX \n" +
+                "2 - CARTÃO");
         System.out.println("Escolha uma opção: ");
         String opcao = input.nextLine();
-
 
         System.out.println("Informe o valor: ");
         BigDecimal valor = new BigDecimal(input.nextLine());
 
-        switch (opcao) {
-            case "1":
-                if (carroDto.getPreco().equals(valor)) {
-                    dto.setValorFinalDaVenda(valor);
-                    pagamento.setFormaDePagamento(FormaDePagamento.PIX);
-                    System.out.println("Carro comprado no PIX com sucesso!");
+        System.out.println("O tipo do CARRO é: \n" +
+                "1- POPULAR \n" +
+                "2- ESPORTIVO");
+        String opcaoCarro = input.nextLine();
+
+        if (opcaoCarro.equals("1")) {
+            List<CarroDto> carroPopular = carroPopularService.listarCarroPopular();
+            for (CarroDto carros : carroPopular) {
+                preco = carros.getPreco();
+            }
+            if (preco.compareTo(valor) == 0) {
+                dto.setValorFinalDaVenda(valor);
+                if (opcao.equals("1")) {
+                    pagamentoDto.setFormaDePagamento(FormaDePagamento.PIX);
                 } else {
-                    System.out.println("O valor informado não corresponde com preço do CARRO!");
+                    pagamentoDto.setFormaDePagamento(FormaDePagamento.CARTAO);
                 }
-                break;
-            case "2":
-                if (carroDto.getPreco().equals(valor)) {
-                    dto.setValorFinalDaVenda(valor);
-                    pagamento.setFormaDePagamento(FormaDePagamento.CARTAO);
-                    System.out.println("Carro comprado no CARTÃO com sucesso!");
+            } else {
+                System.out.println("Valor informado não corresponde com o valor do CARRO!");
+            }
+        } else if (opcaoCarro.equals("2")) {
+            List<CarroDto> carroPopular = carroEsportivoService.listarCarroEsportivo();
+            for (CarroDto carros : carroPopular) {
+                preco = carros.getPreco();
+            }
+            if (preco.compareTo(valor) == 0) {
+                dto.setValorFinalDaVenda(valor);
+                if (opcao.equals("1")) {
+                    pagamentoDto.setFormaDePagamento(FormaDePagamento.PIX);
                 } else {
-                    System.out.println("O valor informado não corresponde com preço do CARRO!");
+                    pagamentoDto.setFormaDePagamento(FormaDePagamento.CARTAO);
                 }
-                break;
-            default:
-                System.out.println("Opção invalida!");
+            } else {
+                System.out.println("Valor informado não corresponde com o valor do CARRO!");
+            }
+        } else {
+            System.out.println("Opção invalida!");
         }
+        pagamento.setFormaDePagamento(pagamentoDto.getFormaDePagamento());
+        estoque.setStatus(Status.INDISPONIVEL);
+        dto.setValorFinalDaVenda(valor);
+        dto.setPagamento(pagamento);
+        dto.setEstoque(estoque);
+        vendaService.realizarVenda(idCliente, idCarro, dto);
+        System.out.println("Compra realizada com sucesso!");
     }
 }

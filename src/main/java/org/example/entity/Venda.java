@@ -27,8 +27,12 @@ public class Venda {
     @JoinColumn(nullable = false)
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(mappedBy = "venda", cascade = CascadeType.ALL)
     private Pagamento pagamento;
+
+    @OneToOne
+    @JoinColumn(name = "estoque_id")
+    private Estoque estoque;
 
     @Column(name = "data_da_venda", nullable = false)
     private LocalDateTime dataDaVenda;

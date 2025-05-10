@@ -21,7 +21,7 @@ public class Pagamento {
     private Long id;
 
     @OneToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "venda_id", nullable = false)
     private Venda venda;
 
     @Column(name = "data_do_pagamento", nullable = false)

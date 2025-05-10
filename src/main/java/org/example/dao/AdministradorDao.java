@@ -15,9 +15,16 @@ public class AdministradorDao {
     }
 
     public void salvar(Administrador admin) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(admin);
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(admin);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Erro ao salvar Administrador no banco de dados: " + e.getMessage(), e);
+        }
     }
 
     public Administrador buscarPorId(Long id) {

@@ -19,9 +19,18 @@ public class AdministradorService {
         this.adminDao = new AdministradorDao(em);
     }
 
-    public void cadastrarAdmin(AdministradorDto dto) {
+    public void cadastrarAdmin(AdministradorDto dto) throws IllegalArgumentException{
+
+        if (validarCadastroAdmin(dto.getNome()) || validarCadastroAdmin(dto.getCpf()) || validarCadastroAdmin(dto.getEndereco()) ||
+                validarCadastroAdmin(dto.getTelefone()) || validarCadastroAdmin(dto.getEmail()) || validarCadastroAdmin(dto.getPassword())) {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos!");
+        }
+
         Administrador admin = new Administrador();
         admin.setNome(dto.getNome());
+        admin.setCpf(dto.getCpf());
+        admin.setEndereco(dto.getEndereco());
+        admin.setTelefone(dto.getTelefone());
         admin.setEmail(dto.getEmail());
         admin.setPassword(dto.getPassword());
         admin.setPerfil(Perfil.ADMIN);
@@ -37,6 +46,9 @@ public class AdministradorService {
         AdministradorDto dto = new AdministradorDto();
         dto.setId(admin.getId());
         dto.setNome(admin.getNome());
+        dto.setCpf(admin.getCpf());
+        dto.setEndereco(admin.getEndereco());
+        dto.setTelefone(admin.getTelefone());
         dto.setEmail(admin.getEmail());
         dto.setPassword(admin.getPassword());
         return dto;
@@ -47,6 +59,9 @@ public class AdministradorService {
             AdministradorDto dto = new AdministradorDto();
             dto.setId(admin.getId());
             dto.setNome(admin.getNome());
+            dto.setCpf(admin.getCpf());
+            dto.setEndereco(admin.getEndereco());
+            dto.setTelefone(admin.getTelefone());
             dto.setEmail(admin.getEmail());
             dto.setPassword(admin.getPassword());
             return dto;
@@ -57,6 +72,9 @@ public class AdministradorService {
         Administrador admin = adminDao.buscarPorId(id);
         if (admin != null) {
             admin.setNome(dto.getNome());
+            admin.setCpf(dto.getCpf());
+            admin.setEndereco(dto.getEndereco());
+            admin.setTelefone(dto.getTelefone());
             admin.setEmail(dto.getEmail());
             admin.setPassword(dto.getPassword());
             adminDao.atualizar(admin);
@@ -65,5 +83,9 @@ public class AdministradorService {
 
     public void deletarAdmin(Long id) {
         adminDao.deletar(id);
+    }
+
+    private boolean validarCadastroAdmin(String valor) {
+        return valor == null || valor.trim().isEmpty();
     }
 }

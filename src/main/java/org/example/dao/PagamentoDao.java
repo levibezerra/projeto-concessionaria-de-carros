@@ -21,7 +21,7 @@ public class PagamentoDao {
     }
 
     public List<Pagamento> listar() {
-        TypedQuery<Pagamento> pagamentoTypedQuery = entityManager.createQuery("SELECT P FROM Pagamento p", Pagamento.class);
+        TypedQuery<Pagamento> pagamentoTypedQuery = entityManager.createQuery("SELECT p FROM Pagamento p", Pagamento.class);
         return pagamentoTypedQuery.getResultList();
     }
 

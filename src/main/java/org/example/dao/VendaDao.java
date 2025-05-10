@@ -21,7 +21,7 @@ public class VendaDao {
     }
 
     public List<Venda> listarVendas() {
-        TypedQuery<Venda> vendaTypedQuery = entityManager.createQuery("SELECT V FROM Venda v", Venda.class);
+        TypedQuery<Venda> vendaTypedQuery = entityManager.createQuery("SELECT v FROM Venda v", Venda.class);
         return vendaTypedQuery.getResultList();
     }
 

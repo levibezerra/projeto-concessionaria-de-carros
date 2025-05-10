@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.entity.Venda;
 import org.example.enums.Status;
 
 import java.time.LocalDateTime;

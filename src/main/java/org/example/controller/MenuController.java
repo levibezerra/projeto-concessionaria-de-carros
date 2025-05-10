@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MenuController {
 
     private final VendaController vendaController;
-    private final AdministradorController administradorController;
+//    private final AdministradorController administradorController;
     private final ClienteController clienteController;
     private final UsuarioController usuarioController;
     private final EstoqueController estoqueController;
@@ -21,7 +21,7 @@ public class MenuController {
         this.usuarioController = usuarioController;
         this.estoqueController = estoqueController;
         this.carroController = carroController;
-        this.administradorController = administradorController;
+//        this.administradorController = administradorController;
         this.vendaController = vendaController;
     }
 
@@ -86,7 +86,7 @@ public class MenuController {
                     clienteController.deletarCliente();
                     break;
                 case "12":
-                    administradorController.cadastrarAdmin();
+//                    administradorController.cadastrarAdmin();
                     break;
                 case "13":
                     vendaController.realizarVendaCarro();

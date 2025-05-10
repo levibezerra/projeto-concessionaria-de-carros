@@ -25,6 +25,15 @@ public class Administrador {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    private String cpf;
+
+    @Column(name = "endereco", length = 200, nullable = false)
+    private String endereco;
+
+    @Column(name = "telefone", length = 20, nullable = false)
+    private String telefone;
+
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 

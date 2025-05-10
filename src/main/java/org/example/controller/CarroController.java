@@ -112,8 +112,6 @@ public class CarroController {
     }
 
     public void deletarCarro() {
-        EstoqueDto dto = new EstoqueDto();
-
         System.out.println("Informe o tipo do carro que deseja DELETAR: \n" +
                 "1 - POPULAR \n" +
                 "2 - ESPORTIVO");
@@ -126,11 +124,9 @@ public class CarroController {
 
         if (opcao.equals("1")) {
             carroPopularService.deletarCarroPopular(id);
-            dto.setStatus(Status.INDISPONIVEL);
             System.out.println("Carro Popular deletado com sucesso!");
         } else {
             carroEsportivoService.deletarCarroEsportivo(id);
-            dto.setStatus(Status.INDISPONIVEL);
             System.out.println("Carro Esportivo deletado com sucesso!");
         }
     }
