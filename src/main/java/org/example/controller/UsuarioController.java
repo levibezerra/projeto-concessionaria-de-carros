@@ -14,14 +14,19 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    public void realizarLogin() {
-        UsuarioDto dto = new UsuarioDto();
+    public void realizarLogin(UsuarioDto dto) {
+//        UsuarioDto dto = new UsuarioDto();
+//
+//        System.out.println("Email: ");
+//        dto.setEmail(input.nextLine());
+//        System.out.println("Senha: ");
+//        dto.setPassword(input.nextLine());
 
-        System.out.println("Email: ");
-        dto.setEmail(input.nextLine());
-        System.out.println("Senha: ");
-        dto.setPassword(input.nextLine());
+        usuarioService.login(dto);
+        System.out.println("Login realizado!");
+    }
 
-        System.out.println("Login realizado!" + usuarioService.login(dto).toString());
+    public Object login(UsuarioDto dto) throws IllegalArgumentException{
+        return usuarioService.verificarLogin(dto);
     }
 }

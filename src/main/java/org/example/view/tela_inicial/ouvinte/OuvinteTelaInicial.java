@@ -1,8 +1,11 @@
 package org.example.view.tela_inicial.ouvinte;
 
 import jakarta.persistence.EntityManager;
+import org.example.dao.AdministradorDao;
+import org.example.view.tela_cadastro.TelaCadastroCliente;
 import org.example.view.tela_cadastro.TelaDeCadastroAdmin;
 import org.example.view.tela_inicial.TelaInicial;
+import org.example.view.tela_login.TelaDeLogin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +25,17 @@ public class OuvinteTelaInicial implements ActionListener {
         Object componente = e.getSource();
 
         if (componente == tela.getCadastro()) {
-            new TelaDeCadastroAdmin(em);
+            AdministradorDao adminDao = new AdministradorDao(em);
+            int numAdmin = adminDao.verificarSeExisteAdminNoBanco();
+            System.out.println("Número de Admins: " + numAdmin);
+            if (numAdmin == 0) {
+                new TelaDeCadastroAdmin(em);
+            } else {
+                new TelaCadastroCliente(em);
+            }
+            tela.dispose();
+        } else if (componente == tela.getLogin()){
+            new TelaDeLogin(em);
             tela.dispose();
         }
     }

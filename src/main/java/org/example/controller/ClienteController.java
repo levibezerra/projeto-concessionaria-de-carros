@@ -16,32 +16,32 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    public void cadastrar() {
-        ClienteDto dto = new ClienteDto();
-
-        System.out.println("Nome: ");
-        dto.setNome(input.nextLine());
-        System.out.println("CPF: ");
-        dto.setCpf(input.nextLine());
-        System.out.println("Endereço: ");
-        dto.setEndereco(input.nextLine());
-        System.out.println("Telefone: ");
-        dto.setTelefone(input.nextLine());
-        System.out.println("Email: ");
-        dto.setEmail(input.nextLine());
-        System.out.println("Senha: ");
-        dto.setPassword(input.nextLine());
+    public void cadastrar(ClienteDto dto) throws IllegalArgumentException{
+//        ClienteDto dto = new ClienteDto();
+//
+////        System.out.println("Nome: ");
+////        dto.setNome(input.nextLine());
+////        System.out.println("CPF: ");
+////        dto.setCpf(input.nextLine());
+////        System.out.println("Endereço: ");
+////        dto.setEndereco(input.nextLine());
+////        System.out.println("Telefone: ");
+////        dto.setTelefone(input.nextLine());
+////        System.out.println("Email: ");
+////        dto.setEmail(input.nextLine());
+////        System.out.println("Senha: ");
+////        dto.setPassword(input.nextLine());
 
         clienteService.cadastrarCliente(dto);
         System.out.println("Cliente cadastrado com sucesso!");
     }
 
-    public void buscarClientePorId() {
-        ClienteDto dto = new ClienteDto();
-        System.out.println("Informe o ID do Cliente: ");
-        Long id = Long.parseLong(input.nextLine());
-        dto = clienteService.buscarClientePorId(id);
-        System.out.println(dto.toString());
+    public ClienteDto buscarClientePorId(Long id) {
+//        ClienteDto dto = new ClienteDto();
+//        System.out.println("Informe o ID do Cliente: ");
+//        Long id = Long.parseLong(input.nextLine());
+//        System.out.println(dto.toString());
+        return clienteService.buscarClientePorId(id);
     }
 
     public void listarTodosClientes() {

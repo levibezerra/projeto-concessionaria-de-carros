@@ -1,7 +1,9 @@
 package org.example.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import org.example.entity.Administrador;
 import org.example.entity.Cliente;
 import org.example.entity.Usuario;
 
@@ -42,6 +44,17 @@ public class ClienteDao {
             entityManager.getTransaction().begin();
             entityManager.remove(cliente);
             entityManager.getTransaction().commit();
+        }
+    }
+
+    public Cliente buscarPorEmailESenha(String email, String password) {
+        try {
+            return entityManager.createQuery("SELECT c FROM Cliente c WHERE c.email = :email AND c.password = :password", Cliente.class)
+                    .setParameter("email", email)
+                    .setParameter("senha", password)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }

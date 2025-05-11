@@ -67,6 +67,7 @@ public class TelaInicial extends JFrame {
         login.setBorder(null);
         login.setFocusable(false);
         login.setOpaque(true);
+        login.addActionListener(ouvinte);
         imagemFundo.add(login);
 
         cadastro = new JButton();

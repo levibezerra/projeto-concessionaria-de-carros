@@ -23,7 +23,12 @@ public class ClienteService {
         this.usuarioDao = new UsuarioDao(em);
     }
 
-    public void cadastrarCliente(ClienteDto dto) {
+    public void cadastrarCliente(ClienteDto dto) throws IllegalArgumentException{
+        if (validarCadastroCliente(dto.getNome()) || validarCadastroCliente(dto.getCpf()) || validarCadastroCliente(dto.getEndereco()) ||
+                validarCadastroCliente(dto.getTelefone()) || validarCadastroCliente(dto.getEmail()) || validarCadastroCliente(dto.getPassword())) {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos!");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(dto.getPassword());
@@ -86,5 +91,9 @@ public class ClienteService {
 
     public void deletarCliente(Long id) {
         clienteDao.deletar(id);
+    }
+
+    private boolean validarCadastroCliente(String valor) {
+        return valor == null || valor.trim().isEmpty();
     }
 }

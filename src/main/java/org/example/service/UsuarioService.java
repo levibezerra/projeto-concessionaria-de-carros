@@ -1,8 +1,12 @@
 package org.example.service;
 
 import jakarta.persistence.EntityManager;
+import org.example.dao.AdministradorDao;
+import org.example.dao.ClienteDao;
 import org.example.dao.UsuarioDao;
 import org.example.dto.UsuarioDto;
+import org.example.entity.Administrador;
+import org.example.entity.Cliente;
 import org.example.entity.Usuario;
 
 import java.util.List;
@@ -12,10 +16,14 @@ public class UsuarioService {
 
     private UsuarioDao usuarioDao;
     private EntityManager em;
+    private AdministradorDao administradorDao;
+    private ClienteDao clienteDao;
 
     public UsuarioService(EntityManager em) {
         this.em = em;
         this.usuarioDao = new UsuarioDao(em);
+        this.administradorDao = new AdministradorDao(em);
+        this.clienteDao = new ClienteDao(em);
     }
 
     public void cadastrarUsuario(UsuarioDto dto) {
@@ -68,5 +76,22 @@ public class UsuarioService {
     public Usuario login(UsuarioDto dto){
         Usuario usuario = usuarioDao.buscarPorEmailSenha(dto.getEmail(), dto.getPassword());
         return usuario;
+    }
+
+    public Object verificarLogin(UsuarioDto dto){
+        if (dto.getEmail() == null || dto.getEmail().isBlank() || dto.getPassword() == null || dto.getPassword().isBlank()) {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos!");
+        }
+
+        Administrador admin = administradorDao.buscarPorEmailESenha(dto.getEmail(), dto.getPassword());
+        if (admin != null) {
+            return admin;
+        }
+
+        Cliente cliente = clienteDao.buscarPorEmailESenha(dto.getEmail(), dto.getPassword());
+        if (cliente != null) {
+            return cliente;
+        }
+        throw new IllegalArgumentException("Email ou senha inválidos!");
     }
 }

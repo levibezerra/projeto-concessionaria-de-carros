@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.example.entity.Administrador;
 
@@ -48,6 +49,23 @@ public class AdministradorDao {
             entityManager.getTransaction().begin();
             entityManager.remove(admin);
             entityManager.getTransaction().commit();
+        }
+    }
+
+    public int verificarSeExisteAdminNoBanco() {
+        String jpql = "SELECT COUNT(a) FROM Administrador a";
+        Long count = entityManager.createQuery(jpql, Long.class).getSingleResult();
+        return count.intValue();
+    }
+
+    public Administrador buscarPorEmailESenha(String email, String password) {
+        try {
+            return entityManager.createQuery("SELECT a FROM Administrador a WHERE a.email = :email AND a.password = :password", Administrador.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }
