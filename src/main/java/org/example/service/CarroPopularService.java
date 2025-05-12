@@ -42,7 +42,7 @@ public class CarroPopularService {
     }
 
     public CarroDto buscarCarroPorId(Long id) {
-        Carro carro = carroDao.buscarPorId(id);
+        CarroPopular carro = em.find(CarroPopular.class, id);
         if (carro == null) {
             return null;
         }
@@ -78,7 +78,7 @@ public class CarroPopularService {
         }
     }
 
-    public void deletarCarroPopular(Long id) {
+    public void deletarCarroPopular(Long id, CarroDto dto) {
         carroDao.deletar(id);
     }
 }

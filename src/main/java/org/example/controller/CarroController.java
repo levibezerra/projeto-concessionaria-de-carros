@@ -5,6 +5,7 @@ import org.example.dto.EstoqueDto;
 import org.example.entity.Carro;
 import org.example.entity.Estoque;
 import org.example.enums.Status;
+import org.example.enums.TipoDeCarro;
 import org.example.service.CarroEsportivoService;
 import org.example.service.CarroPopularService;
 import org.example.service.EstoqueService;
@@ -27,29 +28,14 @@ public class CarroController {
         this.estoqueService = estoqueService;
     }
 
-    public void buscarCarroId() {
-            System.out.println("Informe o tipo do carro que deseja BUSCAR: \n" +
-                               "1 - POPULAR \n" +
-                               "2 - ESPORTIVO");
-
-            System.out.println("Informe uma opção: ");
-            String opcao = input.nextLine();
-
-        CarroDto dto = new CarroDto();
-
-            if (opcao.equals("1")) {
-                System.out.println("Informe o ID: ");
-                Long id = Long.parseLong(input.nextLine());
-                dto = carroPopularService.buscarCarroPorId(id);
-                System.out.println(dto.toString());
-            } else if (opcao.equals("2")){
-                System.out.println("Informe o ID: ");
-                Long id = Long.parseLong(input.nextLine());
-                dto = carroEsportivoService.buscarCarroPorId(id);
-                System.out.println(dto.toString());
-            } else {
-                System.out.println("Carro não encontrado!");
-            }
+    public CarroDto buscarCarroId(Long id, TipoDeCarro tipo) {
+        if (tipo == TipoDeCarro.POPULAR) {
+            return carroPopularService.buscarCarroPorId(id);
+        } else if (tipo == TipoDeCarro.ESPORTIVO) {
+            return carroEsportivoService.buscarCarroPorId(id);
+        } else {
+            throw new IllegalArgumentException("Tipo de carro não reconhecido!");
+        }
     }
 
     public void listarCarros() {
@@ -84,50 +70,23 @@ public class CarroController {
         }
     }
 
-    public void atualizarCarro() {
-        System.out.println("Informe o tipo do carro que deseja ATUALIZAR: \n" +
-                "1 - POPULAR \n" +
-                "2 - ESPORTIVO");
-
-        System.out.println("Informe uma opção: ");
-        String opcao = input.nextLine();
-
-        System.out.println("Informe o ID do carro: ");
-        Long id = Long.parseLong(input.nextLine());
-
-        System.out.println("Informe o novo preço do carro: ");
-        BigDecimal preco = new BigDecimal(input.nextLine());
-
-        CarroDto dto = new CarroDto();
-
-        dto.setPreco(preco);
-
-        if (opcao.equals("1")) {
+    public void atualizarCarro(Long id, TipoDeCarro tipo, CarroDto dto) {
+        if (tipo == TipoDeCarro.POPULAR) {
             carroPopularService.atualizarCarroPopular(id, dto);
-            System.out.println("Preço do Carro Popular atualizado com sucesso!");
-        } else {
+        } else if (tipo == TipoDeCarro.ESPORTIVO) {
             carroEsportivoService.atualizarCarroEsportivo(id, dto);
-            System.out.println("Preço do Carro Esportivo atualizado com sucesso!");
+        } else {
+            throw new IllegalArgumentException("Tipo de carro inválido.");
         }
     }
 
-    public void deletarCarro() {
-        System.out.println("Informe o tipo do carro que deseja DELETAR: \n" +
-                "1 - POPULAR \n" +
-                "2 - ESPORTIVO");
-
-        System.out.println("Informe uma opção: ");
-        String opcao = input.nextLine();
-
-        System.out.println("Informe o ID do carro: ");
-        Long id = Long.parseLong(input.nextLine());
-
-        if (opcao.equals("1")) {
-            carroPopularService.deletarCarroPopular(id);
-            System.out.println("Carro Popular deletado com sucesso!");
+    public void deletarCarro(Long id, TipoDeCarro tipo, CarroDto dto) {
+        if (tipo == TipoDeCarro.POPULAR) {
+            carroPopularService.atualizarCarroPopular(id, dto);
+        } else if (tipo == TipoDeCarro.ESPORTIVO) {
+            carroEsportivoService.atualizarCarroEsportivo(id, dto);
         } else {
-            carroEsportivoService.deletarCarroEsportivo(id);
-            System.out.println("Carro Esportivo deletado com sucesso!");
+            throw new IllegalArgumentException("Tipo de carro inválido.");
         }
     }
 }

@@ -36,7 +36,8 @@ public class Cliente {
     @Column(name = "password", nullable = false, length = 200)
     private String password;
 
-    @OneToOne(mappedBy = "cliente")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @Column(name = "data_de_criacao")

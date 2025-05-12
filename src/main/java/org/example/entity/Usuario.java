@@ -26,9 +26,6 @@ public class Usuario {
     @Column(name = "perfil", nullable = false, length = 25)
     private Perfil perfil;
 
-    @OneToOne
-    private Cliente cliente;
-
     @Column(name = "data_de_criacao")
     private LocalDateTime dataDeCriacao;
 

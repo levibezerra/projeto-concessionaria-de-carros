@@ -6,6 +6,7 @@ import org.example.dao.EstoqueDao;
 import org.example.dto.CarroDto;
 import org.example.entity.Carro;
 import org.example.entity.CarroEsportivo;
+import org.example.entity.CarroPopular;
 import org.example.entity.Estoque;
 import org.example.enums.Status;
 
@@ -42,7 +43,8 @@ public class CarroEsportivoService {
     }
 
     public CarroDto buscarCarroPorId(Long id) {
-        Carro carro = carroDao.buscarPorId(id);
+
+        CarroEsportivo carro = em.find(CarroEsportivo.class, id);
         if (carro == null) {
             return null;
         }
@@ -78,7 +80,7 @@ public class CarroEsportivoService {
         }
     }
 
-    public void deletarCarroEsportivo(Long id) {
+    public void deletarCarroEsportivo(Long id, CarroDto dto) {
         carroDao.deletar(id);
     }
 }

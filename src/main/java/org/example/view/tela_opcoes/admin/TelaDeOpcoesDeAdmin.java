@@ -74,8 +74,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoListarCliente.setBorder(null);
         botaoListarCliente.setFocusable(false);
         botaoListarCliente.setOpaque(true);
-//        botaoListarCliente.addActionListener(ouvinte);
-//
+        botaoListarCliente.addActionListener(ouvinte);
+
         botaoAtualizarCliente = new JButton();
         botaoAtualizarCliente.setText("ATUALIZAR CLIENTE");
         botaoAtualizarCliente.setBounds(25, 470, 370, 50);
@@ -85,8 +85,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoAtualizarCliente.setBorder(null);
         botaoAtualizarCliente.setFocusable(false);
         botaoAtualizarCliente.setOpaque(true);
-//        botaoAtualizarCliente.addActionListener(ouvinte);
-//
+        botaoAtualizarCliente.addActionListener(ouvinte);
+
         botaoDeletarCliente = new JButton();
         botaoDeletarCliente.setText("DELETAR CLIENTE");
         botaoDeletarCliente.setBounds(448, 150, 370, 50);
@@ -96,8 +96,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoDeletarCliente.setBorder(null);
         botaoDeletarCliente.setFocusable(false);
         botaoDeletarCliente.setOpaque(true);
-//        botaoDeletarCliente.addActionListener(ouvinte);
-//
+        botaoDeletarCliente.addActionListener(ouvinte);
+
         botaoAdicionarCarro = new JButton();
         botaoAdicionarCarro.setText("ADICIONAR CARRO");
         botaoAdicionarCarro.setBounds(448, 310, 370, 50);
@@ -107,8 +107,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoAdicionarCarro.setBorder(null);
         botaoAdicionarCarro.setFocusable(false);
         botaoAdicionarCarro.setOpaque(true);
-//        botaoAdicionarCarro.addActionListener(ouvinte);
-//
+        botaoAdicionarCarro.addActionListener(ouvinte);
+
         botaoBuscarCarro = new JButton();
         botaoBuscarCarro.setText("BUSCAR CARRO");
         botaoBuscarCarro.setBounds(448, 470, 370, 50);
@@ -118,8 +118,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoBuscarCarro.setBorder(null);
         botaoBuscarCarro.setFocusable(false);
         botaoBuscarCarro.setOpaque(true);
-//        botaoBuscarCarro.addActionListener(ouvinte);
-//
+        botaoBuscarCarro.addActionListener(ouvinte);
+
         botaoAtualizarCarro = new JButton();
         botaoAtualizarCarro.setText("ATUALIZAR CARRO");
         botaoAtualizarCarro.setBounds(870, 150, 370, 50);
@@ -129,8 +129,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoAtualizarCarro.setBorder(null);
         botaoAtualizarCarro.setFocusable(false);
         botaoAtualizarCarro.setOpaque(true);
-//        botaoAtualizarCarro.addActionListener(ouvinte);
-//
+        botaoAtualizarCarro.addActionListener(ouvinte);
+
         botaoDeletarCarro = new JButton();
         botaoDeletarCarro.setText("DELETAR CARRO");
         botaoDeletarCarro.setBounds(870, 310, 370, 50);
@@ -140,8 +140,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoDeletarCarro.setBorder(null);
         botaoDeletarCarro.setFocusable(false);
         botaoDeletarCarro.setOpaque(true);
-//        botaoDeletarCarro.addActionListener(ouvinte);
-//
+        botaoDeletarCarro.addActionListener(ouvinte);
+
         botaoListarEstoque = new JButton();
         botaoListarEstoque.setText("LISTAR ESTOQUE");
         botaoListarEstoque.setBounds(870, 470, 370, 50);
