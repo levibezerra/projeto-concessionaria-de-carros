@@ -39,8 +39,10 @@ public class EstoqueService {
             dto.setDataDeModificacao(estoque.getDataDeModificacao());
 
             if (estoque.getCarro() != null) {
+                dto.setMarcaDoCarro(estoque.getCarro().getMarca());
                 dto.setModeloDoCarro(estoque.getCarro().getModelo());
             } else {
+                dto.setMarcaDoCarro("");
                 dto.setModeloDoCarro("Carro não associado!");
             }
             return dto;

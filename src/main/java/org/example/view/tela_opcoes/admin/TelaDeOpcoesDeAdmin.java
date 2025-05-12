@@ -151,8 +151,8 @@ public class TelaDeOpcoesDeAdmin extends JFrame {
         botaoListarEstoque.setBorder(null);
         botaoListarEstoque.setFocusable(false);
         botaoListarEstoque.setOpaque(true);
-//        botaoListarEstoque.addActionListener(ouvinte);
-//
+        botaoListarEstoque.addActionListener(ouvinte);
+
         botaoSair = new JButton();
         botaoSair.setText("SAIR");
         botaoSair.setBounds(448, 630, 370, 50);

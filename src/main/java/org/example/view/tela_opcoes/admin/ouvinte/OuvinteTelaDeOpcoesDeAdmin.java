@@ -45,6 +45,9 @@ public class OuvinteTelaDeOpcoesDeAdmin implements ActionListener {
         } else if (componente == telaOpcoes.getBotaoDeletarCarro()) {
             new TelaDeletarCarroAdmin(em);
             telaOpcoes.dispose();
+        } else if (componente == telaOpcoes.getBotaoListarEstoque()) {
+            new TelaListarEstoqueAdmin(em);
+            telaOpcoes.dispose();
         } else if (componente == telaOpcoes.getBotaoSair()) {
             new TelaInicial(em);
             telaOpcoes.dispose();

@@ -3,8 +3,7 @@ package org.example.view.tela_opcoes.admin;
 import jakarta.persistence.EntityManager;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.view.tela_opcoes.admin.ouvinte.OuvinteTelaBuscarClienteAdmin;
-import org.example.view.tela_opcoes.admin.ouvinte.OuvinteTelaListarClienteAdmin;
+import org.example.view.tela_opcoes.admin.ouvinte.OuvinteTelaListarEstoqueAdmin;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -13,31 +12,31 @@ import java.awt.*;
 
 @Getter @Setter
 
-public class TelaListarClienteAdmin extends JFrame{
+public class TelaListarEstoqueAdmin extends JFrame {
 
     private EntityManager em;
     private JButton botaoListar;
     private JButton botaoVoltar;
-    private JTable tabelaCliente;
+    private JTable tabelaEstoque;
     private JLabel titulo;
     private JScrollPane scroll;
     private JPanel painel;
 
-    public TelaListarClienteAdmin(EntityManager em) {
+    public TelaListarEstoqueAdmin(EntityManager em) {
         this.em = em;
-        setTitle("TELA LISTAR CLIENTES");
+        setTitle("TELA LISTAR ESTOQUE");
         setSize(1280, 780);
         setLayout(null);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        adicionarComponentesDeListarCliente();
+        adicionarComponentesDeListarEstoque();
         setVisible(true);
     }
 
-    public void adicionarComponentesDeListarCliente() {
+    private void adicionarComponentesDeListarEstoque() {
 
-        OuvinteTelaListarClienteAdmin ouvinte = new OuvinteTelaListarClienteAdmin(this, em);
+        OuvinteTelaListarEstoqueAdmin ouvinte = new OuvinteTelaListarEstoqueAdmin(this, em);
 
         painel = new JPanel();
         painel.setBounds(0, 0, 1280, 780);
@@ -45,27 +44,27 @@ public class TelaListarClienteAdmin extends JFrame{
         painel.setLayout(null);
 
         titulo = new JLabel();
-        titulo.setText("LISTAR CLIENTES");
+        titulo.setText("LISTAR ESTOQUE");
         titulo.setBounds(420, 21, 800, 45);
         titulo.setForeground(Color.BLACK);
         titulo.setFont(new Font("Arial", Font.BOLD, 52));
 
         DefaultTableModel modelo = new DefaultTableModel(new Object[] {
-                "ID", "NOME", "CPF", "ENDEREÇO", "TELEFONE", "EMAIL", "SENHA"
+                "ID", "MARCA", "MODELO", "STATUS", "DATA DE CHEGADA", "DATA DE MODIFICAÇÃO"
         }, 0);
 
-        tabelaCliente = new JTable(modelo);
-        tabelaCliente.setRowHeight(30);
-        tabelaCliente.getTableHeader().setReorderingAllowed(false);
+        tabelaEstoque = new JTable(modelo);
+        tabelaEstoque.setRowHeight(30);
+        tabelaEstoque.getTableHeader().setReorderingAllowed(false);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        for (int i = 0; i < tabelaCliente.getColumnCount(); i++) {
-            tabelaCliente.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        for (int i = 0; i < tabelaEstoque.getColumnCount(); i++) {
+            tabelaEstoque.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        scroll = new JScrollPane(tabelaCliente);
+        scroll = new JScrollPane(tabelaEstoque);
         scroll.setBounds(70, 100, 1140, 500);
 
         botaoListar = new JButton();

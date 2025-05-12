@@ -34,14 +34,14 @@ public class EstoqueController {
         carroEsportivoService.adicionarCarro(dto);
     }
 
-    public void listarEstoque() {
-        List<EstoqueDto> estoque = estoqueService.listarInfoEstoque();
-        if (estoque.isEmpty()) {
-            System.out.println("Nenhuma informação no Estoque!");
-        } else {
-            for (EstoqueDto estoqueDto : estoque) {
-                System.out.println(estoqueDto.toString());
-            }
-        }
+    public List<EstoqueDto> listarEstoque() {
+        return estoqueService.listarInfoEstoque();
+//        if (estoque.isEmpty()) {
+//            System.out.println("Nenhuma informação no Estoque!");
+//        } else {
+//            for (EstoqueDto estoqueDto : estoque) {
+//                System.out.println(estoqueDto.toString());
+//            }
+//        }
     }
 }
