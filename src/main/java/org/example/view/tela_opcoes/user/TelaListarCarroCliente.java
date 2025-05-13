@@ -16,6 +16,7 @@ import java.awt.*;
 public class TelaListarCarroCliente extends JFrame {
 
     private EntityManager em;
+    private Long idClienteLogado;
     private JButton botaoListar;
     private JButton botaoVoltar;
     private JTable tabelaCliente;
@@ -25,8 +26,9 @@ public class TelaListarCarroCliente extends JFrame {
     private JScrollPane scroll;
     private JPanel painel;
 
-    public TelaListarCarroCliente(EntityManager em) {
+    public TelaListarCarroCliente(EntityManager em, Long idClienteLogado) {
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
         setTitle("TELA LISTAR CARROS");
         setSize(1280, 780);
         setLayout(null);
@@ -39,7 +41,7 @@ public class TelaListarCarroCliente extends JFrame {
 
     private void adicionarComponentesDeListarCarro() {
 
-        OuvinteTelaListarCarroCliente ouvinte = new OuvinteTelaListarCarroCliente(this, em);
+        OuvinteTelaListarCarroCliente ouvinte = new OuvinteTelaListarCarroCliente(this, em, idClienteLogado);
 
         painel = new JPanel();
         painel.setBounds(0, 0, 1280, 780);

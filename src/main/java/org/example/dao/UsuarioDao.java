@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import org.example.entity.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioDao {
 
@@ -55,5 +56,12 @@ public class UsuarioDao {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return entityManager.createQuery("FROM Usuario u WHERE u.email = :email", Usuario.class)
+                .setParameter("email", email)
+                .getResultStream()
+                .findFirst();
     }
 }

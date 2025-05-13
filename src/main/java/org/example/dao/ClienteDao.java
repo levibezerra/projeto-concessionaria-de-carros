@@ -8,6 +8,7 @@ import org.example.entity.Cliente;
 import org.example.entity.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ClienteDao {
 
@@ -56,5 +57,12 @@ public class ClienteDao {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public Optional<Cliente> buscarPorCpf(String cpf) {
+        return entityManager.createQuery("FROM Cliente c WHERE c.cpf = :cpf", Cliente.class)
+                .setParameter("cpf", cpf)
+                .getResultStream()
+                .findFirst();
     }
 }

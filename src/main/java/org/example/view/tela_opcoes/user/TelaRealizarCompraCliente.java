@@ -15,6 +15,7 @@ import java.awt.*;
 public class TelaRealizarCompraCliente extends JFrame {
 
     private EntityManager em;
+    private Long idClienteLogado;
     private JLabel labelIdDoCarro;
     private JTextField textIdDoCarro;
     private JLabel labelIdDoCliente;
@@ -30,8 +31,9 @@ public class TelaRealizarCompraCliente extends JFrame {
     private JPanel painel;
     private JLabel titulo;
 
-    public TelaRealizarCompraCliente(EntityManager em) {
+    public TelaRealizarCompraCliente(EntityManager em, Long idClienteLogado) {
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
         setTitle("TELA ADICIONAR CARRO");
         setSize(1280, 780);
         setLayout(null);
@@ -44,7 +46,7 @@ public class TelaRealizarCompraCliente extends JFrame {
 
     private void adicionarComponentesDoRealizarVenda() {
 
-        OuvinteTelaRealizarCompraCliente ouvinte = new OuvinteTelaRealizarCompraCliente(this, em);
+        OuvinteTelaRealizarCompraCliente ouvinte = new OuvinteTelaRealizarCompraCliente(this, em, idClienteLogado);
 
         painel =new JPanel();
         painel.setBounds(0, 0, 1280, 780);

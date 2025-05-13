@@ -29,6 +29,14 @@ public class ClienteService {
             throw new IllegalArgumentException("Todos os campos devem ser preenchidos!");
         }
 
+        if (usuarioDao.buscarPorEmail(dto.getEmail()).isPresent()) {
+            throw new RuntimeException("Email já cadastrado.");
+        }
+
+        if (clienteDao.buscarPorCpf(dto.getCpf()).isPresent()) {
+            throw new RuntimeException("CPF já cadastrado.");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(dto.getPassword());

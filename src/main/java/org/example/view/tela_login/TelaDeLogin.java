@@ -14,6 +14,7 @@ public class TelaDeLogin extends JFrame {
 
     private EntityManager em;
 
+    private Long idClienteLogado;
     private JLabel labelEmail;
     private JTextField textEmail;
     private JLabel labelSenha;
@@ -23,8 +24,9 @@ public class TelaDeLogin extends JFrame {
     private JButton botaoVoltar;
     private JButton botaoEntrar;
 
-    public TelaDeLogin(EntityManager em) {
+    public TelaDeLogin(EntityManager em, Long idClienteLogado) {
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
         setTitle("TELA DE LOGIN");
         setSize(1280, 780);
         setLayout(null);
@@ -37,7 +39,7 @@ public class TelaDeLogin extends JFrame {
 
     public void adicionarComponentesDeLogin() {
 
-        OuvinteTelaDeLogin ouvinte = new OuvinteTelaDeLogin(this, em);
+        OuvinteTelaDeLogin ouvinte = new OuvinteTelaDeLogin(this, em, idClienteLogado);
 
         painel = new JPanel();
         painel.setBounds(0, 0, 1280, 780);

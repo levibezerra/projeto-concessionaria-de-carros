@@ -14,6 +14,7 @@ public class TelaInicial extends JFrame {
 
     private EntityManager em;
 
+    private Long idClienteLogado;
     private ImagemFundo imagemFundo;
     private JLabel titulo;
     private JLabel subTitulo;
@@ -41,7 +42,7 @@ public class TelaInicial extends JFrame {
     }
 
     public void adicionarComponentes() {
-        OuvinteTelaInicial ouvinte = new OuvinteTelaInicial(this, em);
+        OuvinteTelaInicial ouvinte = new OuvinteTelaInicial(this, em, idClienteLogado);
 
         titulo = new JLabel();
         titulo.setText("CONCESSIONARIA");

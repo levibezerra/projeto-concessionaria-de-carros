@@ -26,10 +26,12 @@ public class OuvinteTelaRealizarCompraCliente implements ActionListener {
 
     private EntityManager em;
     private TelaRealizarCompraCliente telaCompra;
+    private Long idClienteLogado;
 
-    public OuvinteTelaRealizarCompraCliente(TelaRealizarCompraCliente telaCompra, EntityManager em) {
+    public OuvinteTelaRealizarCompraCliente(TelaRealizarCompraCliente telaCompra, EntityManager em, Long idClienteLogado) {
         this.telaCompra = telaCompra;
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class OuvinteTelaRealizarCompraCliente implements ActionListener {
         Object componente = e.getSource();
 
         if (componente == telaCompra.getBotaoVoltar()) {
-            new TelaDeOpcoesDeCliente(em);
+            new TelaDeOpcoesDeCliente(em, idClienteLogado);
             telaCompra.dispose();
         } else if (componente == telaCompra.getBotaoComprar()) {
             try {

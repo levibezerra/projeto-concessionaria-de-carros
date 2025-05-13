@@ -10,6 +10,7 @@ import org.example.view.tela_inicial.TelaInicial;
 import org.example.view.tela_login.TelaDeLogin;
 import org.example.view.tela_opcoes.admin.TelaDeOpcoesDeAdmin;
 import org.example.view.tela_opcoes.user.TelaDeOpcoesDeCliente;
+import org.example.view.tela_opcoes.user.ouvinte.OuvinteTelaDeOpcoesDeCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,10 +20,12 @@ public class OuvinteTelaDeLogin implements ActionListener {
 
     private EntityManager em;
     private TelaDeLogin telaDeLogin;
+    private Long idClienteLogado;
 
-    public OuvinteTelaDeLogin(TelaDeLogin telaDeLogin, EntityManager em) {
+    public OuvinteTelaDeLogin(TelaDeLogin telaDeLogin, EntityManager em, Long idClienteLogado) {
         this.em =em;
         this.telaDeLogin = telaDeLogin;
+        this.idClienteLogado = idClienteLogado;
     }
 
     @Override
@@ -49,7 +52,9 @@ public class OuvinteTelaDeLogin implements ActionListener {
                     new TelaDeOpcoesDeAdmin(em);
                     telaDeLogin.dispose();
                 } else if (usuario instanceof Cliente) {
-                    new TelaDeOpcoesDeCliente(em);
+                    Cliente clienteLogado = (Cliente) usuario;
+                    Long idClienteLogado = clienteLogado.getId();
+                    new TelaDeOpcoesDeCliente(em, idClienteLogado);
                     telaDeLogin.dispose();
                 }
             } catch (IllegalArgumentException ex) {

@@ -13,6 +13,7 @@ import java.awt.*;
 public class TelaDeOpcoesDeCliente extends JFrame {
 
     private EntityManager em;
+    Long idClienteLogado;
     private JButton botaoListarCarro;
     private JButton botaoRealizarCompra;
     private JButton botaoMinhasInfo;
@@ -20,8 +21,9 @@ public class TelaDeOpcoesDeCliente extends JFrame {
     private JLabel titulo;
     private JPanel painel;
 
-    public TelaDeOpcoesDeCliente(EntityManager em) {
+    public TelaDeOpcoesDeCliente(EntityManager em, Long idClienteLogado) {
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
         setTitle("TELA OPÇÕES DE CLIENTE");
         setSize(1280, 780);
         setLayout(null);
@@ -34,7 +36,7 @@ public class TelaDeOpcoesDeCliente extends JFrame {
 
     private void adicionarComponentesDeOpcoesCliente() {
 
-        OuvinteTelaDeOpcoesDeCliente ouvinte = new OuvinteTelaDeOpcoesDeCliente(this, em);
+        OuvinteTelaDeOpcoesDeCliente ouvinte = new OuvinteTelaDeOpcoesDeCliente(this, em, idClienteLogado);
 
         painel = new JPanel();
         painel.setBounds(0, 0, 1280, 780);
@@ -78,7 +80,7 @@ public class TelaDeOpcoesDeCliente extends JFrame {
         botaoMinhasInfo.setBorder(null);
         botaoMinhasInfo.setFocusable(false);
         botaoMinhasInfo.setOpaque(true);
-        //botaoMinhasInfo.addActionListener(ouvinte);
+        botaoMinhasInfo.addActionListener(ouvinte);
 
         botaoSair = new JButton();
         botaoSair.setText("SAIR");

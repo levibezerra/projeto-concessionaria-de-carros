@@ -20,10 +20,12 @@ public class OuvinteTelaListarCarroCliente implements ActionListener {
 
     private EntityManager em;
     private TelaListarCarroCliente telaListarCarro;
+    private Long idClienteLogado;
 
-    public OuvinteTelaListarCarroCliente(TelaListarCarroCliente telaListarCarro, EntityManager em) {
+    public OuvinteTelaListarCarroCliente(TelaListarCarroCliente telaListarCarro, EntityManager em, Long idClienteLogado) {
         this.telaListarCarro = telaListarCarro;
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class OuvinteTelaListarCarroCliente implements ActionListener {
         Object componente = e.getSource();
 
         if (componente == telaListarCarro.getBotaoVoltar()) {
-            new TelaDeOpcoesDeCliente(em);
+            new TelaDeOpcoesDeCliente(em, idClienteLogado);
             telaListarCarro.dispose();
         } else if (componente == telaListarCarro.getBotaoListar()) {
             try {

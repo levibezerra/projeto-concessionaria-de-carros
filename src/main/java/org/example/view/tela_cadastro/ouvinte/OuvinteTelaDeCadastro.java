@@ -76,6 +76,8 @@ public class OuvinteTelaDeCadastro implements ActionListener {
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(tela, ex.getMessage(), "Campos inválidos", JOptionPane.WARNING_MESSAGE);
                 ex.printStackTrace();
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro de Cadastro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

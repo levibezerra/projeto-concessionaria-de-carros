@@ -14,10 +14,12 @@ public class OuvinteTelaInicial implements ActionListener {
 
     private EntityManager em;
     private TelaInicial tela;
+    private Long idClienteLogado;
 
-    public OuvinteTelaInicial(TelaInicial tela, EntityManager em) {
+    public OuvinteTelaInicial(TelaInicial tela, EntityManager em, Long idClienteLogado) {
         this.tela = tela;
         this.em = em;
+        this.idClienteLogado = idClienteLogado;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class OuvinteTelaInicial implements ActionListener {
             }
             tela.dispose();
         } else if (componente == tela.getLogin()){
-            new TelaDeLogin(em);
+            new TelaDeLogin(em, idClienteLogado);
             tela.dispose();
         }
     }
