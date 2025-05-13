@@ -43,7 +43,6 @@ public class CarroEsportivoService {
     }
 
     public CarroDto buscarCarroPorId(Long id) {
-
         CarroEsportivo carro = em.find(CarroEsportivo.class, id);
         if (carro == null) {
             return null;
@@ -78,6 +77,14 @@ public class CarroEsportivoService {
             carro.setPreco(dto.getPreco());
             carroDao.atualizar(carro);
         }
+    }
+
+    public void removerDaTabelaEsportivo(Long id) {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM CarroEsportivo ce WHERE ce.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        em.getTransaction().commit();
     }
 
     public void deletarCarroEsportivo(Long id, CarroDto dto) {

@@ -14,7 +14,6 @@ import java.awt.*;
 public class TelaAdicionarCarroAdmin extends JFrame {
 
     private EntityManager em;
-
     private JLabel labelMarca;
     private JTextField textMarca;
     private JLabel labelModelo;

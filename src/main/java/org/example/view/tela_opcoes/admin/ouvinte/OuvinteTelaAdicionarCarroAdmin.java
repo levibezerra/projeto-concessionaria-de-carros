@@ -69,12 +69,12 @@ public class OuvinteTelaAdicionarCarroAdmin implements ActionListener {
                 dto.setPreco(preco);
                 dto.setCor(cor);
 
-                Carro carro;
-                if (tipo == TipoDeCarro.POPULAR) {
+                Carro carro = tipoDeCarro();
+                if (carro instanceof CarroPopular) {
                     carro = new CarroPopularFactory().criarCarro();
                     servicePopular.adicionarCarro(dto);
                     carro = new CarroPopular(dto.getMarca(), dto.getModelo());
-                } else {
+                } else if (carro instanceof CarroEsportivo){
                     carro = new CarroEsportivoFactory().criarCarro();
                     serviceEsportivo.adicionarCarro(dto);
                     carro = new CarroEsportivo(dto.getMarca(), dto.getModelo());
@@ -87,29 +87,22 @@ public class OuvinteTelaAdicionarCarroAdmin implements ActionListener {
         }
     }
 
-    public static Carro tipoDeCarro() {
+    public Carro tipoDeCarro() {
         Scanner input = new Scanner(System.in);
         CarroPopularFactory carroPopular = new CarroPopularFactory();
         CarroEsportivoFactory carroEsportivo = new CarroEsportivoFactory();
 
+        TipoDeCarro tipo = (TipoDeCarro) telaAdicionarCarro.getTipoDoCarro().getSelectedItem();
+
         Carro carro;
 
-        System.out.println("1- POPULAR \n" +
-                "2- ESPORTIVO");
-
-        System.out.println("Escolha uma opção: ");
-        String opcao = input.nextLine();
-
-        switch (opcao) {
-            case "1":
-                carro = carroPopular.criarCarro();
-                break;
-            case "2":
-                carro = carroEsportivo.criarCarro();
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de carro não existe!");
+        if (tipo == TipoDeCarro.POPULAR) {
+            carro = carroPopular.criarCarro();
+            return carro;
+        } else if (tipo == TipoDeCarro.ESPORTIVO) {
+            carro = carroEsportivo.criarCarro();
+            return carro;
         }
-        return carro;
+        return null;
     }
 }

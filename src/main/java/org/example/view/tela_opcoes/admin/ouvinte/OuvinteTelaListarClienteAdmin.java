@@ -7,6 +7,7 @@ import org.example.service.ClienteService;
 import org.example.view.tela_opcoes.admin.TelaDeOpcoesDeAdmin;
 import org.example.view.tela_opcoes.admin.TelaListarClienteAdmin;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,23 +31,31 @@ public class OuvinteTelaListarClienteAdmin implements ActionListener {
             new TelaDeOpcoesDeAdmin(em);
             telaListar.dispose();
         } else if (componente == telaListar.getBotaoListar()) {
-            ClienteService service = new ClienteService(em);
-            ClienteController controller = new ClienteController(service);
-            List<ClienteDto> clientes = controller.listarTodosClientes();
+            try {
+                ClienteService service = new ClienteService(em);
+                ClienteController controller = new ClienteController(service);
+                List<ClienteDto> clientes = controller.listarTodosClientes();
 
-            DefaultTableModel modelo = (DefaultTableModel) telaListar.getTabelaCliente().getModel();
-            modelo.setRowCount(0);
+                DefaultTableModel modelo = (DefaultTableModel) telaListar.getTabelaCliente().getModel();
+                modelo.setRowCount(0);
 
-            for (ClienteDto dto : clientes) {
-                modelo.addRow(new Object[] {
-                        dto.getId(),
-                        dto.getNome(),
-                        dto.getCpf(),
-                        dto.getEndereco(),
-                        dto.getTelefone(),
-                        dto.getEmail(),
-                        dto.getPassword()
-                });
+                if (clientes.isEmpty()) {
+                    JOptionPane.showMessageDialog(telaListar, "Nenhum cliente encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (ClienteDto dto : clientes) {
+                        modelo.addRow(new Object[] {
+                                dto.getId(),
+                                dto.getNome(),
+                                dto.getCpf(),
+                                dto.getEndereco(),
+                                dto.getTelefone(),
+                                dto.getEmail(),
+                                dto.getPassword()
+                        });
+                    }
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(telaListar, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

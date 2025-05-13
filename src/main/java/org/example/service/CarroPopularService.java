@@ -78,6 +78,14 @@ public class CarroPopularService {
         }
     }
 
+    public void removerDaTabelaPopular(Long id) {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM CarroPopular cp WHERE cp.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        em.getTransaction().commit();
+    }
+
     public void deletarCarroPopular(Long id, CarroDto dto) {
         carroDao.deletar(id);
     }

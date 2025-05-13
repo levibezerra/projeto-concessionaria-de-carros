@@ -6,6 +6,7 @@ import org.example.entity.Carro;
 import org.example.entity.CarroEsportivo;
 import org.example.entity.CarroPopular;
 import org.example.entity.Estoque;
+import org.example.enums.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +31,15 @@ public class CarroDao {
 
     public List<Carro> listarTodosPopulares() {
         List<Carro> carrosList = new ArrayList<>();
-        carrosList.addAll(entityManager.createQuery("SELECT c FROM carro_popular c", CarroPopular.class).getResultList());
+        carrosList.addAll(entityManager.createQuery("SELECT c FROM carro_popular c WHERE c.estoque.status = :status", CarroPopular.class)
+                .setParameter("status", Status.DISPONIVEL).getResultList());
         return carrosList;
     }
 
     public List<Carro> listarTodosEsportivos() {
         List<Carro> carroList = new ArrayList<>();
-        carroList.addAll(entityManager.createQuery("SELECT c FROM carro_esportivo c", CarroEsportivo.class).getResultList());
+        carroList.addAll(entityManager.createQuery("SELECT c FROM carro_esportivo c WHERE c.estoque.status = :status", CarroEsportivo.class)
+                .setParameter("status", Status.DISPONIVEL).getResultList());
         return carroList;
     }
 

@@ -51,7 +51,7 @@ public class ClienteDao {
         try {
             return entityManager.createQuery("SELECT c FROM Cliente c WHERE c.email = :email AND c.password = :password", Cliente.class)
                     .setParameter("email", email)
-                    .setParameter("senha", password)
+                    .setParameter("password", password)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;

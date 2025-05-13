@@ -38,35 +38,13 @@ public class CarroController {
         }
     }
 
-    public void listarCarros() {
-        System.out.println("Informe o tipo do carro que deseja LISTAR: \n" +
-                           "1 - POPULAR \n" +
-                           "2 - ESPORTIVO");
-
-        System.out.println("Informe uma opção: ");
-        String opcao = input.nextLine();
-
-        switch (opcao) {
-            case "1":
-                List<CarroDto> carroPopular = carroPopularService.listarCarroPopular();
-                if (carroPopular.isEmpty()) {
-                    System.out.println("Nenhum carro popular cadastrado!");
-                } else {
-                    for (CarroDto carros : carroPopular) {
-                        System.out.println(carros.toString());
-                    }
-                }
-                break;
-            case "2":
-                List<CarroDto> carroEsportivo = carroEsportivoService.listarCarroEsportivo();
-                if (carroEsportivo.isEmpty()) {
-                    System.out.println("Nenhum carro esportivo cadastrado!");
-                } else {
-                    for (CarroDto carros : carroEsportivo) {
-                        System.out.println(carros.toString());
-                    }
-                }
-                break;
+    public List<CarroDto> listarCarros(TipoDeCarro tipo) {
+        if (tipo == TipoDeCarro.POPULAR) {
+            return carroPopularService.listarCarroPopular();
+        } else if (tipo == TipoDeCarro.ESPORTIVO) {
+            return carroEsportivoService.listarCarroEsportivo();
+        } else {
+            throw new IllegalArgumentException("Nenhum carro disponivel no momento!");
         }
     }
 
@@ -76,17 +54,17 @@ public class CarroController {
         } else if (tipo == TipoDeCarro.ESPORTIVO) {
             carroEsportivoService.atualizarCarroEsportivo(id, dto);
         } else {
-            throw new IllegalArgumentException("Tipo de carro inválido.");
+            throw new IllegalArgumentException("Este carro ainda não foi adicionado.");
         }
     }
 
     public void deletarCarro(Long id, TipoDeCarro tipo, CarroDto dto) {
         if (tipo == TipoDeCarro.POPULAR) {
-            carroPopularService.atualizarCarroPopular(id, dto);
+            carroPopularService.deletarCarroPopular(id, dto);
         } else if (tipo == TipoDeCarro.ESPORTIVO) {
-            carroEsportivoService.atualizarCarroEsportivo(id, dto);
+            carroEsportivoService.deletarCarroEsportivo(id, dto);
         } else {
-            throw new IllegalArgumentException("Tipo de carro inválido.");
+            throw new IllegalArgumentException("Este carro ainda não foi adicionado .");
         }
     }
 }

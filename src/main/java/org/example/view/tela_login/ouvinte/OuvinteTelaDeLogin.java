@@ -4,10 +4,12 @@ import jakarta.persistence.EntityManager;
 import org.example.controller.UsuarioController;
 import org.example.dto.UsuarioDto;
 import org.example.entity.Administrador;
+import org.example.entity.Cliente;
 import org.example.service.UsuarioService;
 import org.example.view.tela_inicial.TelaInicial;
 import org.example.view.tela_login.TelaDeLogin;
 import org.example.view.tela_opcoes.admin.TelaDeOpcoesDeAdmin;
+import org.example.view.tela_opcoes.user.TelaDeOpcoesDeCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,6 +47,9 @@ public class OuvinteTelaDeLogin implements ActionListener {
 
                 if (usuario instanceof Administrador) {
                     new TelaDeOpcoesDeAdmin(em);
+                    telaDeLogin.dispose();
+                } else if (usuario instanceof Cliente) {
+                    new TelaDeOpcoesDeCliente(em);
                     telaDeLogin.dispose();
                 }
             } catch (IllegalArgumentException ex) {

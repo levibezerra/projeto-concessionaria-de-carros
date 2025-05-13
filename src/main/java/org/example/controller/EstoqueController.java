@@ -36,12 +36,5 @@ public class EstoqueController {
 
     public List<EstoqueDto> listarEstoque() {
         return estoqueService.listarInfoEstoque();
-//        if (estoque.isEmpty()) {
-//            System.out.println("Nenhuma informação no Estoque!");
-//        } else {
-//            for (EstoqueDto estoqueDto : estoque) {
-//                System.out.println(estoqueDto.toString());
-//            }
-//        }
     }
 }

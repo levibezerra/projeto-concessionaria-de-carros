@@ -15,13 +15,6 @@ public class UsuarioController {
     }
 
     public void realizarLogin(UsuarioDto dto) {
-//        UsuarioDto dto = new UsuarioDto();
-//
-//        System.out.println("Email: ");
-//        dto.setEmail(input.nextLine());
-//        System.out.println("Senha: ");
-//        dto.setPassword(input.nextLine());
-
         usuarioService.login(dto);
         System.out.println("Login realizado!");
     }

@@ -13,7 +13,6 @@ import java.awt.*;
 public class TelaDeOpcoesDeAdmin extends JFrame {
 
     private EntityManager em;
-
     private JButton botaoBuscarCliente;
     private JButton botaoListarCliente;
     private JButton botaoAtualizarCliente;
