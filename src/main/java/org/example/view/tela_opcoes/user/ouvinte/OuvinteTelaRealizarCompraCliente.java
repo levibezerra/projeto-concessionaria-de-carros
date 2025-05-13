@@ -7,6 +7,7 @@ import org.example.dto.PagamentoDto;
 import org.example.dto.VendaDto;
 import org.example.entity.Estoque;
 import org.example.entity.Pagamento;
+import org.example.entity.Venda;
 import org.example.enums.FormaDePagamento;
 import org.example.enums.Status;
 import org.example.enums.TipoDeCarro;
@@ -45,6 +46,7 @@ public class OuvinteTelaRealizarCompraCliente implements ActionListener {
             try {
                 VendaDto dto = new VendaDto();
                 Estoque estoque = new Estoque();
+                //Venda venda = new Venda();
                 PagamentoDto pagamentoDto = new PagamentoDto();
                 Pagamento pagamento = new Pagamento();
                 VendaService vendaService = new VendaService(em);

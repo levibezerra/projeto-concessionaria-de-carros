@@ -28,46 +28,52 @@ public class OuvinteTelaAtualizarClienteAdmin implements ActionListener {
         ClienteService service = new ClienteService(em);
         ClienteController controller = new ClienteController(service);
 
-        if (componente == telaAtualizar.getBotaoVoltar()) {
-            new TelaDeOpcoesDeAdmin(em);
-            telaAtualizar.dispose();
-        } else if (componente == telaAtualizar.getBotaoBuscar()) {
-            String textoId = telaAtualizar.getTextAdicionarID().getText();
+        try {
+            if (componente == telaAtualizar.getBotaoVoltar()) {
+                new TelaDeOpcoesDeAdmin(em);
+                telaAtualizar.dispose();
+            } else if (componente == telaAtualizar.getBotaoBuscar()) {
+                String textoId = telaAtualizar.getTextAdicionarID().getText();
 
-            if (textoId == null || textoId.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o ID do cliente para buscar.");
-                return;
+                if (textoId == null || textoId.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Informe o ID do cliente para buscar.");
+                    return;
+                }
+                Long id = Long.valueOf(textoId);
+                ClienteDto dto = controller.buscarClientePorId(id);
+
+                if (dto != null) {
+                    telaAtualizar.preencherCampos(dto);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
+                }
+
+            } else if (componente == telaAtualizar.getBotaoSalvar()) {
+                String textoId = telaAtualizar.getTextAdicionarID().getText();
+
+                if (textoId == null || textoId.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Informe o ID do cliente para atualizar.");
+                    return;
+                }
+
+                Long id = Long.valueOf(textoId);
+
+                ClienteDto dto = new ClienteDto();
+                dto.setNome(telaAtualizar.getTextNome().getText());
+                dto.setCpf(telaAtualizar.getTextCpf().getText());
+                dto.setEndereco(telaAtualizar.getTextEndereco().getText());
+                dto.setTelefone(telaAtualizar.getTextTelefone().getText());
+                dto.setEmail(telaAtualizar.getTextEmail().getText());
+                dto.setPassword(telaAtualizar.getPassSenha().getText());
+
+                controller.atualizarCliente(id, dto);
+                JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
             }
-            Long id = Long.valueOf(textoId);
-            ClienteDto dto = controller.buscarClientePorId(id);
-
-            if (dto != null) {
-                telaAtualizar.preencherCampos(dto);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
-            }
-
-        } else if (componente == telaAtualizar.getBotaoSalvar()) {
-            String textoId = telaAtualizar.getTextAdicionarID().getText();
-
-            if (textoId == null || textoId.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o ID do cliente para atualizar.");
-                return;
-            }
-
-            Long id = Long.valueOf(textoId);
-
-            ClienteDto dto = new ClienteDto();
-            dto.setNome(telaAtualizar.getTextNome().getText());
-            dto.setCpf(telaAtualizar.getTextCpf().getText());
-            dto.setEndereco(telaAtualizar.getTextEndereco().getText());
-            dto.setTelefone(telaAtualizar.getTextTelefone().getText());
-            dto.setEmail(telaAtualizar.getTextEmail().getText());
-            dto.setPassword(telaAtualizar.getPassSenha().getText());
-
-            controller.atualizarCliente(id, dto);
-            JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(telaAtualizar, "ID inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(telaAtualizar, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

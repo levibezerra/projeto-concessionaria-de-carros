@@ -16,11 +16,10 @@
         <class>org.example.entity.CarroPopular</class>
         <class>org.example.entity.CarroEsportivo</class>
         <class>org.example.entity.Carro</class>
-        <!-- Outras entidades... -->
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco_teste7"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco_teste10"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="mysql2024"/>
 

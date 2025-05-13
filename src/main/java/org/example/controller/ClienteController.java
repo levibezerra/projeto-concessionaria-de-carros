@@ -30,7 +30,7 @@ public class ClienteController {
         return clienteService.listarClientes();
     }
 
-    public void atualizarCliente(Long id, ClienteDto dto) {
+    public void atualizarCliente(Long id, ClienteDto dto) throws NumberFormatException {
         ClienteDto cliente = clienteService.buscarClientePorId(id);
 
         if (cliente == null) {

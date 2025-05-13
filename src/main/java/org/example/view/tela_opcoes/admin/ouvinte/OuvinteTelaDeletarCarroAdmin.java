@@ -35,52 +35,58 @@ public class OuvinteTelaDeletarCarroAdmin implements ActionListener {
         CarroController controller = new CarroController(popularService, esportivoService, estoqueService);
         TipoDeCarro tipo = (TipoDeCarro) telaDeletarCarro.getTipoDoCarro().getSelectedItem();
 
-        if (componente == telaDeletarCarro.getBotaoVoltar()) {
-            new TelaDeOpcoesDeAdmin(em);
-            telaDeletarCarro.dispose();
-        } else if (componente == telaDeletarCarro.getBotaoBuscar()) {
-            String textoId = telaDeletarCarro.getTextAdicionarID().getText();
-
-            if (textoId == null || textoId.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o ID do carro para buscar.");
-                return;
-            }
-            Long id = Long.valueOf(textoId);
-            CarroDto dto = controller.buscarCarroId(id, tipo);
-
-            if (dto != null) {
-                telaDeletarCarro.preencherCampos(dto);
-            } else {
-                JOptionPane.showMessageDialog(null, "Carro não encontrado.");
-            }
-        } else if (componente == telaDeletarCarro.getBotaoDeletar()) {
-            try {
+        try {
+            if (componente == telaDeletarCarro.getBotaoVoltar()) {
+                new TelaDeOpcoesDeAdmin(em);
+                telaDeletarCarro.dispose();
+            } else if (componente == telaDeletarCarro.getBotaoBuscar()) {
                 String textoId = telaDeletarCarro.getTextAdicionarID().getText();
 
                 if (textoId == null || textoId.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Informe o ID do cliente para atualizar.");
+                    JOptionPane.showMessageDialog(null, "Informe o ID do carro para buscar.");
                     return;
                 }
                 Long id = Long.valueOf(textoId);
+                CarroDto dto = controller.buscarCarroId(id, tipo);
 
-                CarroDto dto = new CarroDto();
-                dto.setMarca(telaDeletarCarro.getTextMarca().getText());
-                dto.setModelo(telaDeletarCarro.getTextModelo().getText());
-                dto.setAno(Integer.parseInt(telaDeletarCarro.getTextAno().getText()));
-                dto.setPreco(new BigDecimal(telaDeletarCarro.getTextPreco().getText()));
-                dto.setCor(telaDeletarCarro.getTextCor().getText());
-
-                if (tipo == TipoDeCarro.POPULAR) {
-                    popularService.deletarCarroPopular(id, dto);
-                    JOptionPane.showMessageDialog(null, "Carro Popular deletado com sucesso!");
+                if (dto != null) {
+                    telaDeletarCarro.preencherCampos(dto);
                 } else {
-                    esportivoService.deletarCarroEsportivo(id, dto);
-                    JOptionPane.showMessageDialog(null, "Carro Esportivo deletado com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Carro não encontrado.");
                 }
-                telaDeletarCarro.limparCampos();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar o carro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            } else if (componente == telaDeletarCarro.getBotaoDeletar()) {
+                try {
+                    String textoId = telaDeletarCarro.getTextAdicionarID().getText();
+
+                    if (textoId == null || textoId.trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Informe o ID do cliente para atualizar.");
+                        return;
+                    }
+                    Long id = Long.valueOf(textoId);
+
+                    CarroDto dto = new CarroDto();
+                    dto.setMarca(telaDeletarCarro.getTextMarca().getText());
+                    dto.setModelo(telaDeletarCarro.getTextModelo().getText());
+                    dto.setAno(Integer.parseInt(telaDeletarCarro.getTextAno().getText()));
+                    dto.setPreco(new BigDecimal(telaDeletarCarro.getTextPreco().getText()));
+                    dto.setCor(telaDeletarCarro.getTextCor().getText());
+
+                    if (tipo == TipoDeCarro.POPULAR) {
+                        popularService.deletarCarroPopular(id, dto);
+                        JOptionPane.showMessageDialog(null, "Carro Popular deletado com sucesso!");
+                    } else {
+                        esportivoService.deletarCarroEsportivo(id, dto);
+                        JOptionPane.showMessageDialog(null, "Carro Esportivo deletado com sucesso!");
+                    }
+                    telaDeletarCarro.limparCampos();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao deletar o carro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(telaDeletarCarro, "ID inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(telaDeletarCarro, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

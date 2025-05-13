@@ -37,7 +37,7 @@ public class CarroVendido {
     @Column(name = "data_de_saida", nullable = false)
     private LocalDateTime dataDeSaida;
 
-    @OneToOne
+    @Transient
     private Carro carro;
 
     @PrePersist

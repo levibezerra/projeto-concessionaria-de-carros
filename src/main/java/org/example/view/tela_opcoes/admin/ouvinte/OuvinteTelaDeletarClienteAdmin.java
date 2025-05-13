@@ -28,45 +28,51 @@ public class OuvinteTelaDeletarClienteAdmin implements ActionListener {
         ClienteService service = new ClienteService(em);
         ClienteController controller = new ClienteController(service);
 
-        if (componente == telaDeletar.getBotaoVoltar()) {
-            new TelaDeOpcoesDeAdmin(em);
-            telaDeletar.dispose();
-        } else if (componente == telaDeletar.getBotaoBuscar()) {
-            String textoId = telaDeletar.getTextAdicionarID().getText();
+        try {
+            if (componente == telaDeletar.getBotaoVoltar()) {
+                new TelaDeOpcoesDeAdmin(em);
+                telaDeletar.dispose();
+            } else if (componente == telaDeletar.getBotaoBuscar()) {
+                String textoId = telaDeletar.getTextAdicionarID().getText();
 
-            if (textoId == null || textoId.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o ID do cliente para buscar.");
-                return;
+                if (textoId == null || textoId.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Informe o ID do cliente para buscar.");
+                    return;
+                }
+                Long id = Long.valueOf(textoId);
+                ClienteDto dto = controller.buscarClientePorId(id);
+
+                if (dto != null) {
+                    telaDeletar.preencherCampos(dto);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
+                }
+            } else if (componente == telaDeletar.getBotaoDeletar()) {
+                String textoId = telaDeletar.getTextAdicionarID().getText();
+
+                if (textoId == null || textoId.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Informe o ID do cliente para deletar.");
+                    return;
+                }
+                Long id = Long.valueOf(textoId);
+
+                ClienteDto dto = new ClienteDto();
+                dto.setNome(telaDeletar.getTextNome().getText());
+                dto.setCpf(telaDeletar.getTextCpf().getText());
+                dto.setEndereco(telaDeletar.getTextEndereco().getText());
+                dto.setTelefone(telaDeletar.getTextTelefone().getText());
+                dto.setEmail(telaDeletar.getTextEmail().getText());
+                dto.setPassword(telaDeletar.getPassSenha().getText());
+
+                controller.deletarCliente(id);
+                JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
+                telaDeletar.limparCampos();
             }
-            Long id = Long.valueOf(textoId);
-            ClienteDto dto = controller.buscarClientePorId(id);
-
-            if (dto != null) {
-                telaDeletar.preencherCampos(dto);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
-            }
-        } else if (componente == telaDeletar.getBotaoDeletar()) {
-            String textoId = telaDeletar.getTextAdicionarID().getText();
-
-            if (textoId == null || textoId.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o ID do cliente para deletar.");
-                return;
-            }
-            Long id = Long.valueOf(textoId);
-
-            ClienteDto dto = new ClienteDto();
-            dto.setNome(telaDeletar.getTextNome().getText());
-            dto.setCpf(telaDeletar.getTextCpf().getText());
-            dto.setEndereco(telaDeletar.getTextEndereco().getText());
-            dto.setTelefone(telaDeletar.getTextTelefone().getText());
-            dto.setEmail(telaDeletar.getTextEmail().getText());
-            dto.setPassword(telaDeletar.getPassSenha().getText());
-
-            controller.deletarCliente(id);
-            JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
-            telaDeletar.limparCampos();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(telaDeletar, "ID inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(telaDeletar, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

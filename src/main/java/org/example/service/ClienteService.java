@@ -85,7 +85,7 @@ public class ClienteService {
         }).collect(Collectors.toList());
     }
 
-    public void atualizarCliente(Long id, ClienteDto dto) {
+    public void atualizarCliente(Long id, ClienteDto dto) throws NumberFormatException {
         Cliente cliente = clienteDao.buscarPorId(id);
         if (cliente != null) {
             cliente.setNome(dto.getNome());
